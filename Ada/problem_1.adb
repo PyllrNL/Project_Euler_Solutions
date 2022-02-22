@@ -56,6 +56,8 @@ begin
 
     Put_Line("Runtime(Avg) = " & Duration'Image(Dur) & " ms");
 
+    New_Line;
+
     Put_Line("Running second solution");
     Start_Time := Clock;
     for I in 1 .. 1_000 loop
