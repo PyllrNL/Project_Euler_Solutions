@@ -21,9 +21,9 @@ procedure Problem_1 is
         Sum : Int64 := 0;
 
         function Arithmetic_Sequence( N, Top : Int64 ) return Int64 is
-            First_Term : Int64 := N;
-            Last_Term : Int64 := Top - ( Top mod N );
-            N_Terms : Int64 := Last_Term / N;
+            First_Term : constant Int64 := N;
+            Last_Term : constant Int64 := Top - ( Top mod N );
+            N_Terms : constant Int64 := Last_Term / N;
         begin
             return N_Terms * ( First_Term + Last_Term) / 2;
         end Arithmetic_Sequence;
@@ -40,28 +40,30 @@ procedure Problem_1 is
 
     Start_Time, End_Time : Time;
     Dur : Duration;
+    Input : Int64 := 1;
 
 begin
 
-    Put_Line("Running first Solution");
-    Start_Time := Clock;
-    for I in 1 .. 1_000 loop
-        Test := Solve_1(1_000_000_0);
+    for I in 1 .. 9 loop
+        Put(Int64'Image(Input));
+        Start_Time := Clock;
+        for I in 1 .. 1_000 loop
+            Test := Solve_1(Input);
+        end loop;
+        End_Time := Clock;
+        Dur := (End_Time - Start_Time) / 1_000;
+
+        Put(Duration'Image(Dur));
+        Start_Time := Clock;
+        for I in 1 .. 1_000 loop
+            Test := Solve_2(Input);
+        end loop;
+        End_Time := Clock;
+        Dur := (End_Time - Start_Time) / 1_000;
+        Put(Duration'Image(Dur));
+
+        Input := Input * 10;
+        New_Line;
     end loop;
-    End_Time := Clock;
-    Dur := (End_Time - Start_Time) / 1_000;
 
-    Put_Line("Runtime(Avg) = " & Duration'Image(Dur) & " ms");
-
-    New_Line;
-
-    Put_Line("Running second solution");
-    Start_Time := Clock;
-    for I in 1 .. 1_000 loop
-        Test := Solve_1(1_000_000_0);
-    end loop;
-    End_Time := Clock;
-    Dur := (End_Time - Start_Time) / 1_000;
-
-    Put_Line("Runtime(Avg) = " & Duration'Image(Dur) & " ms");
 end Problem_1;
