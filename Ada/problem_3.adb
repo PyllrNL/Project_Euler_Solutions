@@ -7,31 +7,60 @@ procedure problem_3 is
 
     type Int64 is range -2**63 .. 2**63 -1;
 
-    function Solve_1( Comp : Int64 ) return Int64 is
-        Largest_Prime_Factor : Int64 := 0;
-        Upper : constant Int64 := Int64(Sqrt(Float(Comp)));
-        N : Int64 := Comp;
-        I : Int64 := 3;
-    begin
+    type Prime_Count is record
+        Prime : Integer;
+        Count : Integer;
+    end record;
 
-        while N mod 2 = 0 loop
-            Largest_Prime_Factor := 2;
+    type Prime_List is array (Natural range <>) of Prime_Count;
+
+    function Prime_Factorization( Num : Int64 ) return Prime_List is
+        Upper : constant Int64 := Int64(Sqrt(Float(Num)));
+        N : Int64 := Num;
+        I : Int64 := 3;
+        Inc : Integer := 0;
+        Count : Integer := 0;
+        Prime_Upper_Bound : Int64 := Upper / (Int64(Log(Float(Upper), Float(10))));
+        Primes : Prime_List(0 .. Integer(Prime_Upper_Bound));
+    begin
+        Put_Line(Int64'Image(Prime_Upper_Bound));
+        if N mod 2 = 0 then
+            Count := 1;
             N := N / 2;
-        end loop;
+            while N mod 2 = 0 loop
+                Count := Count + 1;
+                N := N / 2;
+            end loop;
+            Primes(Inc) := (Prime => 2, Count => Count);
+            Inc := Inc + 1;
+        end if;
 
         outer:
-        while I < Upper loop
-            while N mod I = 0 loop
-                Largest_Prime_Factor := I;
+        while I <= Upper loop
+            if N mod I = 0 then
+                Count := 1;
                 N := N / I;
-                if N = 1 then
-                    exit outer;
-                end if;
-            end loop;
+                while N mod I = 0 loop
+                    Primes(Inc).Count := Primes(Inc).Count + 1;
+                    N := N / I;
+                end loop;
+                Primes(Inc) := ( Prime => Integer(I), Count => Count );
+                Inc := Inc + 1;
+            end if;
             I := I + 2;
         end loop outer;
 
-        return Largest_Prime_Factor;
+        declare
+            Primes_Ret : Prime_List(0 .. Inc - 1) := Primes(0 .. Inc - 1);
+        begin
+            return Primes_Ret;
+        end;
+    end Prime_Factorization;
+
+    function Solve_1( Comp : Int64 ) return Int64 is
+        Primes : constant Prime_List := Prime_Factorization(600851475143);
+    begin
+        return Int64(Primes(Primes'Last).Prime);
     end Solve_1;
 
 begin
