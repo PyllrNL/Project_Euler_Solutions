@@ -95,22 +95,36 @@ procedure problem_5 is
         Y : Integer := B;
         Temp : Integer;
     begin
-        while Y /= 0 loop
+        loop
             Temp := Y mod X;
-            X := B;
-            Y := Temp;
+            Y := X;
+            X := Temp;
+            exit when Temp = 0;
         end loop;
 
-        return X;
+        return Y;
     end Greatest_Common_Divisor;
 
-    function Solve_2( Min, Max : Integer ) return Int64 is
+    function Least_Common_Multiple( A, B : Integer ) return Integer is
+        X : Constant Integer := (if A >= 0 then A else -A);
+        Y : Constant Integer := (if B >= 0 then B else -B);
     begin
+        return (X / Greatest_Common_Divisor( A, B)) * Y;
+    end Least_Common_Multiple;
 
+    function Solve_2( Min, Max : Integer ) return Int64 is
+        Temp : Integer := Min;
+    begin
+        for I in (Min + 1) .. Max loop
+            Temp := Least_Common_Multiple( Temp, I );
+        end loop;
+
+        return Int64(Temp);
     end Solve_2;
 
 begin
 
     Put_Line(Int64'Image(Solve_1(1, 20)));
+    Put_Line(Int64'Image(Solve_2(1, 20)));
 
 end problem_5;
