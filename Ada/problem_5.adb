@@ -71,8 +71,7 @@ procedure problem_5 is
                             end if;
                         end loop;
                         if Found = false then
-                            Prime := ( Prime => Int64(J), Count =>
-                            Int64(Count));
+                            Prime := ( Prime => J, Count => Int64(Count));
                             Primes.append(Prime);
                         end if;
                     end if;
@@ -90,6 +89,25 @@ procedure problem_5 is
         return Num;
 
     end Solve_1;
+
+    function Greatest_Common_Divisor( A, B : Integer ) return Integer is
+        X : Integer := A;
+        Y : Integer := B;
+        Temp : Integer;
+    begin
+        while Y /= 0 loop
+            Temp := Y mod X;
+            X := B;
+            Y := Temp;
+        end loop;
+
+        return X;
+    end Greatest_Common_Divisor;
+
+    function Solve_2( Min, Max : Integer ) return Int64 is
+    begin
+
+    end Solve_2;
 
 begin
 
