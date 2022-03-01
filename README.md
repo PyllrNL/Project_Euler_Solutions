@@ -2,6 +2,6 @@
 
 ## Solutions implemented
 
-| Problem | Ada | Python | Lua | Haskell | C | Assembly |
-|---------|-----|--------|-----|---------|---|----------|
-| 1 | - [x] | - [ ] | -[ ] | -[ ] | -[ ] | - [ ] |
+| Problem | Ada | Lua |
+|---------|-----|-----|
+| 1 | :white_check_mark: | :white_check_mark: |
