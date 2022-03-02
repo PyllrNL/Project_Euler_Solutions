@@ -16,6 +16,8 @@ procedure main is
     Element_Type => Solution_Case);
 
     Test_Suite : Suite.Vector;
+    Count : Integer := 1;
+    Failed : Integer := 0;
 
 begin
 
@@ -26,15 +28,24 @@ begin
 
     for C of Test_Suite loop
         Put_Line("Running test case: " & To_String(C.Name) );
+        Count := 1;
         for T of C.Tests loop
+            Put("Running Test" & Integer'Image(Count) & " :");
             declare
             begin
                 T.all;
+                Put(" Passed");
             exception
                 when Assertion_Error =>
-                    Put_Line("Failed test");
+                    Failed := Failed + 1;
+                    Put(" Failed");
             end;
+            New_Line;
+            Count := Count + 1;
         end loop;
     end loop;
+
+    New_Line;
+    Put_Line("Failed" & Integer'Image(Failed) & " Tests");
 
 end main;
