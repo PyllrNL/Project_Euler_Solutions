@@ -1,13 +1,6 @@
-with Ada.Text_IO; use Ada.Text_IO;
-with Ada.Containers.Vectors;
+package body Problem_7 is
 
-procedure problem_7 is
-
-    type Int64 is range -2**63 .. 2**63 - 1;
-
-    package P is new Ada.Containers.Vectors(Index_Type => Natural, Element_Type => Int64);
-
-    function Solve_1( Num : Integer ) return Int64 is
+    function Solution_1( Num : Integer ) return Int64 is
         Primes : P.Vector;
         Prime_Count : Int64 := 1;
         Inc : Int64 := 3;
@@ -34,10 +27,20 @@ procedure problem_7 is
         end loop;
 
         return Primes.Last_Element;
-    end Solve_1;
+    end Solution_1;
 
-begin
+    procedure Test_Solution_1 is
+        Solution : constant Int64 := 104743;
+    begin
+        Assert( Solution_1(10_001) = Solution );
+    end Test_Solution_1;
 
-    Put_Line(Int64'Image(Solve_1(10_001)));
+    function Get_Solutions return Solution_Case is
+        Ret : Solution_Case;
+    begin
+        Set_Name( Ret, "Problem 7");
+        Add_Test( Ret, Test_Solution_1'Access );
+        return Ret;
+    end Get_Solutions;
 
-end problem_7;
+end Problem_7;
