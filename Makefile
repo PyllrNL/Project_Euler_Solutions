@@ -1,7 +1,9 @@
 OUTPUT := output/
 
-SRC_ADA := $(wildcard Ada/*.adb)
-OBJ_ADA := $(patsubst %.adb, $(OUTPUT)% , $(SRC_ADA))
+ADA_LOC := -aIAda
+ADA_PROBLEM := $(sort $(dir $(wildcard Ada/*/ )))
+ADA_PROBLEM_LOC := $(patsubst %, -aI%, $(ADA_PROBLEM))
+ADA_LOC += $(ADA_PROBLEM_LOC)
 
 SRC_LUA := $(wildcard Lua/*.lua)
 OBJ_LUA := $(patsubst %.lua, $(OUTPUT)%, $(SRC_LUA))
@@ -16,16 +18,9 @@ $(OUTPUT):
 	mkdir -p $(OUTPUT)Ada
 	mkdir -p $(OUTPUT)Lua
 
-build_ada: $(OBJ_ADA)
-	rm -rf *.ali *.o
-
-build_lua: $(OBJ_LUA)
-
-$(OUTPUT)%: %.adb
-	@echo =======================================================
-	gnatmake -o $@ $<
-	@echo =======================================================
-	@echo ""
+build_lua:
+	gnatmake Ada/main.adb -d $(ADA_LOC) -D $(OUTPUT)Ada -o $(OUTPUT)Ada/euler
+	@echo $(ADA_PROBLEM_LOC)
 
 $(OUTPUT)%: %.lua
 	@echo =======================================================
