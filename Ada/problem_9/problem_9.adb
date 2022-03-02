@@ -1,12 +1,6 @@
-with Ada.Text_IO; use Ada.Text_IO;
-with Ada.Numerics.Elementary_Functions;
-use Ada.Numerics.Elementary_Functions;
+package body Problem_9 is
 
-procedure problem_9 is
-
-    type Int64 is range -2**63 .. 2**63 - 1;
-
-    function Solve_1 return Int64 is
+    function Solution_1 return Int64 is
         X_1 : Constant Float := (1.0 + Sqrt(1.0 - (4.0*(-500.0)))) / 2.0;
         X_2 : Constant Float := (1.0 - Sqrt(1.0 - (4.0*(-500.0)))) / 2.0;
         Max,Temp,A,B,C : Int64;
@@ -30,10 +24,20 @@ procedure problem_9 is
         end loop;
 
         return 0;
-    end Solve_1;
+    end Solution_1;
 
-begin
+    procedure Test_Solution_1 is
+        Solution : constant Int64 := 31875000;
+    begin
+        Assert( Solution_1 = Solution );
+    end Test_Solution_1;
 
-    Put_Line(Int64'Image(Solve_1));
+    function Get_Solutions return Solution_Case is
+        Ret : Solution_Case;
+    begin
+        Set_Name( Ret, "Problem 9");
+        Add_Test( Ret, Test_Solution_1'Access );
+        return Ret;
+    end Get_Solutions;
 
-end problem_9;
+end Problem_9;
