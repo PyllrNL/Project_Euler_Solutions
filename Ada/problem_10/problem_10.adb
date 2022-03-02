@@ -1,14 +1,6 @@
-with Ada.Text_IO; use Ada.Text_IO;
-with Ada.Containers.Vectors;
+package body Problem_10 is
 
-procedure problem_10 is
-
-    type Int128 is range -2**127 .. 2**127 - 1;
-
-    package P is new Ada.Containers.Vectors( Index_Type => Natural, Element_Type
-    => Natural );
-
-    function Solve_1 return Int128 is
+    function Solution_1 return Int128 is
         Primes : P.Vector;
         Inc : Integer := 3;
         Divisible : Boolean := false;
@@ -25,7 +17,6 @@ procedure problem_10 is
                 end if;
             end loop;
             if Divisible = false then
-                Put_Line("Found prime" & Natural'Image(Inc));
                 Primes.append(Inc);
             end if;
             Inc := Inc + 2;
@@ -37,9 +28,9 @@ procedure problem_10 is
 
         return Sum;
 
-    end Solve_1;
+    end Solution_1;
 
-    function Solve_2(Limit : Integer) return Int128 is
+    function Solution_2(Limit : Integer) return Int128 is
         Lim : constant Int128 := Int128(Limit);
         Is_Prime : array( Int128 range 1 .. Lim ) of Boolean := (others
         => false);
@@ -154,10 +145,27 @@ procedure problem_10 is
 
         return Sum;
 
-    end Solve_2;
+    end Solution_2;
 
-begin
+    procedure Test_Solution_1 is
+        Solution : constant Int128 := 142913828922;
+    begin
+        Assert( Solution_1 = Solution );
+    end Test_Solution_1;
 
-    Put_Line(Int128'Image(Solve_2(2_000_000)));
+    procedure Test_Solution_2 is
+        Solution : constant Int128 := 142913828922;
+    begin
+        Assert( Solution_2( 2_000_000 ) = Solution );
+    end Test_Solution_2;
 
-end problem_10;
+    function Get_Solutions return Solution_Case is
+        Ret : Solution_Case;
+    begin
+        Set_Name( Ret, "Problem 10");
+        Add_Test( Ret, Test_Solution_1'Access );
+        Add_Test( Ret, Test_Solution_2'Access );
+        return Ret;
+    end Get_Solutions;
+
+end Problem_10;
