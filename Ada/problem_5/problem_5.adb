@@ -1,22 +1,6 @@
-with Ada.Text_IO; use Ada.Text_IO;
-with Ada.Numerics; use Ada.Numerics;
-with Ada.Numerics.Elementary_Functions;
-use Ada.Numerics.Elementary_Functions;
-with Ada.Containers.Vectors;
+package body Problem_5 is
 
-procedure problem_5 is
-
-    type Int64 is range -2**63 .. 2**63 - 1;
-
-    type Prime_Count is record
-        Prime : Int64;
-        Count : Int64;
-    end record;
-
-    package P is new Ada.Containers.Vectors(Index_Type => Natural,
-    Element_Type => Prime_Count);
-
-    function Solve_1( Min, Max : Integer ) return Int64 is
+    function Solution_1( Min, Max : Integer ) return Int64 is
         Num : Int64 := 1;
         Primes : P.Vector;
     begin
@@ -88,7 +72,7 @@ procedure problem_5 is
 
         return Num;
 
-    end Solve_1;
+    end Solution_1;
 
     function Greatest_Common_Divisor( A, B : Integer ) return Integer is
         X : Integer := A;
@@ -112,7 +96,7 @@ procedure problem_5 is
         return (X / Greatest_Common_Divisor( A, B)) * Y;
     end Least_Common_Multiple;
 
-    function Solve_2( Min, Max : Integer ) return Int64 is
+    function Solution_2( Min, Max : Integer ) return Int64 is
         Temp : Integer := Min;
     begin
         for I in (Min + 1) .. Max loop
@@ -120,11 +104,27 @@ procedure problem_5 is
         end loop;
 
         return Int64(Temp);
-    end Solve_2;
+    end Solution_2;
 
-begin
+    procedure Test_Solution_1 is
+        Solution : constant Int64 := 232792560;
+    begin
+        Assert( Solution_1(1, 20) = Solution );
+    end Test_Solution_1;
 
-    Put_Line(Int64'Image(Solve_1(1, 20)));
-    Put_Line(Int64'Image(Solve_2(1, 20)));
+    procedure Test_Solution_2 is
+        Solution : constant Int64 := 232792560;
+    begin
+        Assert( Solution_2(1, 20) = Solution );
+    end Test_Solution_2;
 
-end problem_5;
+    function Get_Solutions return Solution_Case is
+        Ret : Solution_Case;
+    begin
+        Set_Name( Ret, "Problem 5");
+        Add_Test( Ret, Test_Solution_1'Access );
+        Add_Test( Ret, Test_Solution_2'Access );
+        return Ret;
+    end Get_Solutions;
+
+end Problem_5;
