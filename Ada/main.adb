@@ -7,6 +7,7 @@ with Problem_1;
 with Problem_2;
 with Problem_3;
 with Problem_4;
+with Problem_5;
 
 procedure main is
 
@@ -25,6 +26,7 @@ begin
     Test_Suite.Append(Problem_2.Get_Solutions);
     Test_Suite.Append(Problem_3.Get_Solutions);
     Test_Suite.Append(Problem_4.Get_Solutions);
+    Test_Suite.Append(Problem_5.Get_Solutions);
 
     for C of Test_Suite loop
         Put_Line("Running test case: " & To_String(C.Name) );
