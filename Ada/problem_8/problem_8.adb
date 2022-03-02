@@ -1,8 +1,4 @@
-with Ada.Text_IO; use Ada.Text_IO;
-
-procedure problem_8 is
-
-    type Int64 is range -2**63 .. 2**63 - 1;
+package body Problem_8 is
 
     Number : constant String :=
         "73167176531330624919225119674426574742355349194934" &
@@ -26,7 +22,7 @@ procedure problem_8 is
         "05886116467109405077541002256983155200055935729725" &
         "71636269561882670428252483600823257530420752963450";
 
-    function Solve_1 return Int64 is
+    function Solution_1 return Int64 is
         Index : Natural := 1;
         Local_Index : Natural := 0;
         Sum : Int64 := 1;
@@ -54,10 +50,20 @@ procedure problem_8 is
         end loop;
 
         return Total;
-    end Solve_1;
+    end Solution_1;
 
-begin
+    procedure Test_Solution_1 is
+        Solution : constant Int64 := 23514624000;
+    begin
+        Assert( Solution_1 = Solution );
+    end Test_Solution_1;
 
-    Put_Line(Int64'Image(Solve_1));
+    function Get_Solutions return Solution_Case is
+        Ret : Solution_Case;
+    begin
+        Set_Name( Ret, "Problem 8");
+        Add_Test( Ret, Test_Solution_1'Access );
+        return Ret;
+    end Get_Solutions;
 
-end problem_8;
+end Problem_8;
