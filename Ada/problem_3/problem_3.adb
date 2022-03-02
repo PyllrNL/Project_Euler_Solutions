@@ -56,7 +56,7 @@ package body Problem_3 is
     function Get_Solutions return Solution_Case is
         Ret : Solution_Case;
     begin
-        Set_Name( Ret, "Solutions to Problem 3");
+        Set_Name( Ret, "Problem 3");
         Add_Test( Ret, Test_Solution_1'Access );
 
         return Ret;
