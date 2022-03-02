@@ -1,10 +1,6 @@
-with Ada.Text_IO; use Ada.Text_IO;
+package body Problem_6 is
 
-procedure problem_6 is
-   
-    type Int64 is range -2**63 .. 2**63 - 1;
-
-    function Solve_1 return Int64 is
+    function Solution_1 return Int64 is
         Sum_Of_Squares : Int64 := 0;
         Sum : Int64 := 0;
     begin
@@ -14,18 +10,34 @@ procedure problem_6 is
         end loop;
 
         return (Sum * Sum ) - Sum_Of_Squares;
-    end Solve_1;
+    end Solution_1;
 
-    function Solve_2 return Int64 is
+    function Solution_2 return Int64 is
         Sum_Of_Squares : Constant Int64 := (100*(100 + 1)*(2*100 + 1)) / 6;
         Sum : Constant Int64 := (100*(100+1)) / 2;
     begin
         return (Sum*Sum) - Sum_Of_Squares;
-    end Solve_2;
+    end Solution_2;
 
-begin
+    procedure Test_Solution_1 is
+        Solution : constant Int64 := 25164150;
+    begin
+        Assert( Solution_1 = Solution );
+    end Test_Solution_1;
 
-    Put_Line(Int64'Image(Solve_1));
-    Put_Line(Int64'Image(Solve_2));
+    procedure Test_Solution_2 is
+        Solution : constant Int64 := 25164150;
+    begin
+        Assert( Solution_1 = Solution );
+    end Test_Solution_2;
 
-end problem_6;
+    function Get_Solutions return Solution_Case is
+        Ret : Solution_Case;
+    begin
+        Set_Name( Ret, "Problem 6");
+        Add_Test( Ret, Test_Solution_1'Access );
+        Add_Test( Ret, Test_Solution_2'Access );
+        return Ret;
+    end Get_Solutions;
+
+end Problem_6;
