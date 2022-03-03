@@ -1,3 +1,5 @@
+local M = {}
+
 function Solve_1(Num)
     Sum = 0
     for i = 1, Num - 1, 1 do
@@ -25,5 +27,19 @@ function Solve_2(Num)
     return (Sum | 0)
 end
 
-print(Solve_1(1000))
-print(Solve_2(1000))
+function Test_Solution_1()
+    assert( Solve_1(1000) == 233168 )
+end
+
+function Test_Solution_2()
+    assert( Solve_2(1000) == 233168 )
+end
+
+function M.Get_Solutions()
+    func = {}
+    func[1] = Test_Solution_1
+    func[2] = Test_Solution_2
+    return func
+end
+
+return M
