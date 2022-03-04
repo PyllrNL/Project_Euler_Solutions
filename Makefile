@@ -10,8 +10,7 @@ OBJ_LUA := $(patsubst %.lua, $(OUTPUT)%, $(SRC_LUA))
 
 .PHONY: all build_ada clean check check_ada build_lua check_lua
 
-all: $(OUTPUT) build_ada build_lua
-	@echo $(OBJ_LUA)
+all: $(OUTPUT) build_ada
 
 $(OUTPUT):
 	mkdir -p $(OUTPUT)
@@ -20,23 +19,14 @@ $(OUTPUT):
 
 build_ada:
 	gnatmake Ada/main.adb -d $(ADA_LOC) -D $(OUTPUT)Ada -o $(OUTPUT)Ada/euler
-	@echo $(ADA_PROBLEM_LOC)
 
-build_lua: $(OBJ_LUA)
-
-$(OUTPUT)%: %.lua
-	@echo =======================================================
-	luac -o $@ $<
-	@echo =======================================================
-	@echo ""
-
-check: check_ada check_lua
+check: check_ada
 
 check_ada:
 	./output/Ada/euler
 
 check_lua:
-	lua $(OBJ_LUA)
+	lua Lua/main.lua
 
 clean:
 	rm -rf output/
