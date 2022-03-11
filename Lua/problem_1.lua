@@ -1,6 +1,6 @@
 local M = {}
 
-function Solve_1(Num)
+function Solution_1(Num)
     Sum = 0
     for i = 1, Num - 1, 1 do
         if i % 3 == 0 or i % 5 == 0 then
@@ -19,7 +19,7 @@ function Arith_Sequence( N, Top )
     return (Terms * ( First + Last ) / 2);
 end
 
-function Solve_2(Num)
+function Solution_2(Num)
     Sum = Arith_Sequence( 3, Num - 1 )
     Sum = Sum + Arith_Sequence( 5, Num - 1)
     Sum = Sum - Arith_Sequence( 15, Num - 1)
@@ -28,11 +28,11 @@ function Solve_2(Num)
 end
 
 function Test_Solution_1()
-    assert( Solve_1(1000) == 233168 )
+    assert( Solution_1(1000) == 233168 )
 end
 
 function Test_Solution_2()
-    assert( Solve_2(1000) == 233168 )
+    assert( Solution_2(1000) == 233168 )
 end
 
 function M.Get_Solutions()
